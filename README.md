@@ -1,1 +1,1 @@
-# -gw-currency-wallet
+# gw-currency-wallet
