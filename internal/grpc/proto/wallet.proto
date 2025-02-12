@@ -1,0 +1,37 @@
+syntax = "proto3"; 
+
+package wallet;
+
+
+option go_package = "internal/grpc/proto;wallet";
+
+// Сервис WalletService с методами для работы с кошельками
+service WalletService {
+  rpc CreateWallet (CreateWalletRequest) returns (WalletResponse);
+  rpc GetWallet (GetWalletRequest) returns (WalletResponse);
+  rpc AddFunds (AddFundsRequest) returns (WalletResponse);
+}
+
+// Запрос для создания кошелька
+message CreateWalletRequest {
+  string user_id = 1;
+}
+
+// Запрос для получения данных о кошельке
+message GetWalletRequest {
+  string wallet_id = 1;
+}
+
+// Запрос для добавления средств в кошелёк
+message AddFundsRequest {
+  string wallet_id = 1;
+  string currency = 2;
+  float amount = 3;
+}
+
+// Ответ на запросы, содержащий информацию о кошельке
+message WalletResponse {
+  string wallet_id = 1;
+  string user_id = 2;
+  map<string, float> balances = 3; // Валюта -> Баланс
+}
