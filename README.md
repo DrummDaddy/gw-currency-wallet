@@ -55,6 +55,7 @@ docker build -t gw-currency-wallet .
 
 Запуск контейнера: 
 docker run -d --env-file config.env -p 50051:50051 qw-currency-wallet 
+--- 
 
 ## Структура проекта: 
 .
@@ -68,6 +69,7 @@ docker run -d --env-file config.env -p 50051:50051 qw-currency-wallet
 │   ├── storages/           # Модели и хранилища данных
 │       └── model.go        # Модели данных (User, Wallet)
 └── Dockerfile              # Файл для создания Docker образа 
+--- 
 
 ## Запуск тестов: 
 go test ./... -v
