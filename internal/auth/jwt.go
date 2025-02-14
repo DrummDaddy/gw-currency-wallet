@@ -1,6 +1,8 @@
 package auth
 
 import (
+	"context"
+	"errors"
 	"fmt"
 	"time"
 
@@ -54,5 +56,21 @@ func (j *JWTManager) Verify(tokenStr string) (string, error) {
 		return "", fmt.Errorf("invalid token playload")
 	}
 
+	return userID, nil
+}
+
+func GetUserIDFromContext(ctx context.Context) (string, error) {
+	token, ok := ctx.Value("jwt").(*jwt.Token) // Предположим, токен хранится в контексте
+	if !ok {
+		return "", errors.New("no token in context")
+	}
+	claims, ok := token.Claims.(jwt.MapClaims)
+	if !ok {
+		return "", errors.New("invalid token claims")
+	}
+	userID, ok := claims["user_id"].(string)
+	if !ok {
+		return "", errors.New("user_id not found in token claims")
+	}
 	return userID, nil
 }
